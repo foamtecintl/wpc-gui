@@ -12,6 +12,15 @@ const UserService = {
       password: userRegister.password
     }
     return axios.post(API_URL + '/api/register', JSON.stringify(data), {headers})
+  },
+  userValidateUsername (userRegister) {
+    let headers = {
+      'Content-Type': 'application/json'
+    }
+    let data = {
+      username: userRegister.username
+    }
+    return axios.post(API_URL + '/api/validateusername', JSON.stringify(data), {headers})
   }
 }
 
