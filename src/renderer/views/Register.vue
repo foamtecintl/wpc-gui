@@ -68,6 +68,14 @@
         </b-col>
       </b-row>
     </div>
+    <BlockUI v-if="showBlockUI">
+      <h3>Register success</h3>
+      <i class="fa fa-check fa-3x fa-fw"></i><br><br>
+      <b-button variant="primary" @click="goToLogin">Go to login</b-button>
+    </BlockUI>
+    <BlockUI v-if="showWait">
+      <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+    </BlockUI>
   </div>
 </template>
 
@@ -89,7 +97,9 @@ export default {
       stateEmail: null,
       statePassword: null,
       statePasswordText: 'Enter at least 7 letters',
-      stateConfirmPassword: null
+      stateConfirmPassword: null,
+      showBlockUI: false,
+      showWait: false
     }
   },
   methods: {
@@ -97,13 +107,19 @@ export default {
       this.$router.push('/pages/login')
     },
     register () {
+      this.showWait = true
       UserService.userRegister(this.dataRegister)
         .then(res => {
-          alert(res.data.message)
+          this.showWait = false
+          this.showBlockUI = true
         })
         .catch(err => {
-          console.log(err)
+          this.showWait = false
+          alert(err)
         })
+    },
+    goToLogin () {
+      this.$router.push('/pages/login')
     },
     checkUsername () {
       UserService.userValidateUsername(this.dataRegister)

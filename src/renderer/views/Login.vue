@@ -6,7 +6,7 @@
           <b-card-group>
             <b-card no-body class="p-4">
               <b-card-body>
-                <b-form>
+                <b-form @submit.prevent="login">
                   <h1>Login</h1>
                   <p class="text-muted">Sign In to your account</p>
                   <b-input-group class="mb-3">
@@ -19,7 +19,7 @@
                   </b-input-group>
                   <b-row>
                     <b-col cols="6">
-                      <b-button variant="primary" class="px-4" :disabled="validateForm">Login</b-button>
+                      <b-button variant="primary" type="submit" class="px-4" :disabled="validateForm">Login</b-button>
                     </b-col>
                     <b-col cols="6" class="text-right">
                       <b-button variant="link" class="px-0">Forgot password?</b-button>
@@ -41,10 +41,15 @@
         </b-col>
       </b-row>
     </div>
+    <BlockUI v-if="showWait">
+      <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+    </BlockUI>
   </div>
 </template>
 
 <script>
+import UserService from '@/service/user.service'
+
 export default {
   name: 'Login',
   data () {
@@ -52,10 +57,26 @@ export default {
       userLogin: {
         username: '',
         password: ''
-      }
+      },
+      showWait: false
     }
   },
   methods: {
+    login () {
+      this.showWait = true
+      UserService.login(this.userLogin)
+        .then(res => {
+          localStorage.setItem('token', res.data.token)
+          localStorage.setItem('username', res.data.username)
+          localStorage.setItem('role', res.data.role)
+          this.showWait = false
+          this.$router.push('/')
+        })
+        .catch(err => {
+          alert(err.response.data.message)
+          this.showWait = false
+        })
+    },
     redirectToRegister () {
       this.$router.push('/pages/register')
     }

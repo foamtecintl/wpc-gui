@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
-
 import App from './App'
+import BlockUI from 'vue-blockui'
 import BootstrapVue from 'bootstrap-vue'
 import router from './router'
 import store from './store'
@@ -11,6 +11,7 @@ Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 Vue.use(BootstrapVue)
+Vue.use(BlockUI)
 
 /* eslint-disable no-new */
 new Vue({

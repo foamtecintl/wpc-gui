@@ -1,7 +1,7 @@
 <template>
   <AppHeaderDropdown right no-caret>
     <template slot="header">
-      <i class="icon-user icons font-2xl mt-4 img-avatar"></i>
+      <i class="icon-user icons font-2xl mt-4 img-avatar"></i> {{ username }}
     </template>\
     <template slot="dropdown">
       <b-dropdown-header
@@ -24,8 +24,14 @@ export default {
   components: {
     AppHeaderDropdown
   },
+  data () {
+    return {
+      username: localStorage.getItem('username')
+    }
+  },
   methods: {
     logout () {
+      localStorage.clear()
       this.$router.push('/pages/login')
     }
   }
