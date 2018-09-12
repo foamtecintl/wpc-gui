@@ -19,6 +19,12 @@ const router = new Router({
           name: 'Dashboard',
           component: require('@/views/Dashboard.vue').default,
           meta: { requiresAuth: true }
+        },
+        {
+          path: '/updateprofile',
+          name: 'UpdateProfile',
+          component: require('@/views/profile/UpdateProfile.vue').default,
+          meta: { requiresAuth: true }
         }
       ]
     },

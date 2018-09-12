@@ -10,18 +10,28 @@
                 <p class="text-muted">Create your account</p>
                 <b-input-group class="mb-3">
                   <b-input-group-prepend>
+                    <b-input-group-text>ID</b-input-group-text>
+                  </b-input-group-prepend>
+                  <b-form-input type="text" class="form-control"
+                    v-model="dataRegister.employeeId"
+                    :state="validateEmpId"
+                    placeholder="Employee ID" />
+                    <b-form-invalid-feedback>
+                      {{ stateEmpIdText }}
+                    </b-form-invalid-feedback>
+                </b-input-group>
+                <b-input-group class="mb-3">
+                  <b-input-group-prepend>
                     <b-input-group-text><i class="icon-user"></i></b-input-group-text>
                   </b-input-group-prepend>
                   <b-form-input type="text" class="form-control"
                     v-model="dataRegister.username"
                     :state="validateUsername"
-                    placeholder="Username"
-                    autocomplete="username" />
+                    placeholder="Username" />
                     <b-form-invalid-feedback>
                       {{ stateUsernameText }}
                     </b-form-invalid-feedback>
                 </b-input-group>
-
                 <b-input-group class="mb-3">
                   <b-input-group-prepend>
                     <b-input-group-text>@</b-input-group-text>
@@ -29,10 +39,8 @@
                   <b-form-input type="text" class="form-control"
                   :state="validateEmail"
                   v-model="dataRegister.email"
-                  placeholder="Email"
-                  autocomplete="email" />
+                  placeholder="Email" />
                 </b-input-group>
-
                 <b-input-group class="mb-3">
                   <b-input-group-prepend>
                     <b-input-group-text><i class="icon-lock"></i></b-input-group-text>
@@ -40,13 +48,11 @@
                   <b-form-input type="password" class="form-control"
                   v-model="dataRegister.password"
                   :state="validatePassword"
-                  placeholder="Password"
-                  autocomplete="new-password" />
+                  placeholder="Password" />
                   <b-form-invalid-feedback>
                     {{ statePasswordText }}
                   </b-form-invalid-feedback>
                 </b-input-group>
-
                 <b-input-group class="mb-4">
                   <b-input-group-prepend>
                     <b-input-group-text><i class="icon-lock"></i></b-input-group-text>
@@ -54,8 +60,7 @@
                   <b-form-input type="password" class="form-control"
                   :state="validateConfirmPassword"
                   v-model="dataRegister.confirmPassword"
-                  placeholder="Repeat password"
-                  autocomplete="new-password" />
+                  placeholder="Repeat password" />
                 </b-input-group>
 
                 <b-button variant="success" type="submit" :disabled="validateSubmit" block>Create Account</b-button>
@@ -87,11 +92,14 @@ export default {
   data () {
     return {
       dataRegister: {
+        employeeId: '',
         username: '',
         email: '',
         password: '',
         confirmPassword: ''
       },
+      stateEmpId: null,
+      stateEmpIdText: 'Enter at least 4 letters',
       stateUsername: null,
       stateUsernameText: '',
       stateEmail: null,
@@ -120,6 +128,25 @@ export default {
     },
     goToLogin () {
       this.$router.push('/pages/login')
+    },
+    checkEmployeeID () {
+      UserService.userValidateEmployeeId(this.dataRegister)
+        .then(res => {
+          if (this.dataRegister.employeeId === '') {
+            this.stateEmpId = null
+          } else {
+            if (this.dataRegister.employeeId.length < 4) {
+              this.stateEmpIdText = 'Enter at least 4 letters'
+              this.stateEmpId = false
+            } else {
+              this.stateEmpId = true
+            }
+          }
+        })
+        .catch(err => {
+          this.stateEmpIdText = err.response.data.message
+          this.stateEmpId = false
+        })
     },
     checkUsername () {
       UserService.userValidateUsername(this.dataRegister)
@@ -179,6 +206,10 @@ export default {
     }
   },
   computed: {
+    validateEmpId () {
+      this.checkEmployeeID()
+      return this.stateEmpId
+    },
     validateUsername () {
       this.checkUsername()
       return this.stateUsername
@@ -196,7 +227,7 @@ export default {
       return this.stateConfirmPassword
     },
     validateSubmit () {
-      let submitDisabled = this.stateUsername && this.stateEmail && this.statePassword && this.stateConfirmPassword
+      let submitDisabled = this.stateEmpId && this.stateUsername && this.stateEmail && this.statePassword && this.stateConfirmPassword
       return !submitDisabled
     }
   }
