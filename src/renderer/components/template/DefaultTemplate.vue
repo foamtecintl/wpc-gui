@@ -3,15 +3,10 @@
     <AppHeader fixed>
       <SidebarToggler class="d-lg-none" display="md" mobile />
       <b-link class="navbar-brand" to="#">
-        <img class="navbar-brand-full" src="~@/assets/logo.png" width="89" height="25" alt="CoreUI Logo">
-        <img class="navbar-brand-minimized" src="~@/assets/logo.png" width="30" height="30" alt="CoreUI Logo">
+        <img class="navbar-brand-full" src="~@/assets/foamtec.png" width="100" height="25" alt="Foamtec Logo">
+        <img class="navbar-brand-minimized" src="~@/assets/logo.jpg" width="30" height="30" alt="Foamtec Logo">
       </b-link>
       <SidebarToggler class="d-md-down-none" display="lg" />
-      <b-navbar-nav class="d-md-down-none">
-        <b-nav-item class="px-3" to="/dashboard">Dashboard</b-nav-item>
-        <b-nav-item class="px-3" to="/users" exact>Users</b-nav-item>
-        <b-nav-item class="px-3">Settings</b-nav-item>
-      </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <DefaultHeaderUser/>
       </b-navbar-nav>

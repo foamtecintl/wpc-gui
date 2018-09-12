@@ -82,6 +82,34 @@
           </b-form>
         </b-card>
       </b-col>
+      <b-col md="5">
+        <div class="col-sm-12 col-md-12 main-section text-center">
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 col-12 profile-header"></div>
+          </div>
+          <div class="row user-detail">
+            <div class="col-lg-12 col-sm-12 col-12">
+              <img src="~@/assets/user.png" alt="Profile" class="rounded-circle img-thumbnail">
+              <h5>ID: {{ userUpdate.employeeId }}</h5>
+              <h5>{{ userUpdate.firstName }} {{ userUpdate.lastName }}</h5>
+              <h5>[username: {{ userUpdate.username }}]</h5>
+              <p>{{ userUpdate.department }} Department</p>
+              <p>Email: {{ userUpdate.email }}</p>
+              <p>Tel: {{ userUpdate.telephone }}</p>
+              <hr>
+              <span>Foamtec international factory</span>
+              <hr>
+            </div>
+          </div>
+          <div class="row user-social-detail">
+            <div class="col-lg-12 col-sm-12 col-12">
+              <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+              <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+              <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+      </b-col>
     </b-row>
     <BlockUI v-if="showBlockUI">
       <h3>Update success</h3>
@@ -248,3 +276,34 @@ export default {
   }
 }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.main-section{
+  border: 1px solid #138496;
+  background-color: #fff;
+}
+.profile-header{
+  background-color: #17a2b8;
+  height: 80px;
+}
+.user-detail{
+  margin: -50px 0px 30px 0px;
+}
+.user-detail img{
+  height: 100px;
+  width: 100px;
+}
+.user-detail h5{
+  margin: 15px 0px 5px 0px;
+}
+.user-social-detail{
+  padding: 15px 0px;
+  background-color: #17a2b8;
+}
+.user-social-detail a i{
+  color:#fff;
+  font-size: 23px;
+  padding: 0px 5px;
+}
+</style>
