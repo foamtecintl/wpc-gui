@@ -28,11 +28,10 @@
                 </b-form>
               </b-card-body>
             </b-card>
-            <b-card no-body class="text-white bg-primary py-5 d-md-down-none" style="width:44%">
+            <b-card no-body class="text-white bg-default py-5 d-md-down-none" style="width:44%">
               <b-card-body class="text-center">
-                <div>
-                  <h2>Sign up</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <div class="col-12">
+                  <img src="~@/assets/foamtec-login.png" class="responsive" alt="logo-login" width="200">
                   <b-button variant="primary" class="active mt-3" @click="redirectToRegister">Register Now!</b-button>
                 </div>
               </b-card-body>
@@ -69,6 +68,7 @@ export default {
           localStorage.setItem('token', res.data.token)
           localStorage.setItem('username', res.data.username)
           localStorage.setItem('role', res.data.role)
+          localStorage.setItem('status', res.data.status)
           this.showWait = false
           this.$router.push('/')
         })
